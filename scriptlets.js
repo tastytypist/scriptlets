@@ -21,5 +21,8 @@
     if (!valid_hostname) {
         return;
     }
-    window.location.replace(hostname + window.location.pathname);
+    window.location.replace(hostname 
+                            + window.location.pathname 
+                            + window.location.search 
+                            + window.location.hash);
 })();
