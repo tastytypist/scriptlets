@@ -14,6 +14,7 @@
     console.log(2);
     const valid_hostname = (() => {
         try {
+            console.log(hostname);
             new URL(hostname);
             console.log(3);
             return true;
