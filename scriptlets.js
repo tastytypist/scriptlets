@@ -4,6 +4,8 @@
  * Redirects opened URL by replacing its hostname with the specified hostname.
  * @param {string} hostname - a valid string representation of a hostname we
  *                            want to be redirected to
+ * @example
+ * www.reddit.com##+js(rh, https://old.reddit.com)
  * */
 (function() {
     const hostname = "{{1}}"
