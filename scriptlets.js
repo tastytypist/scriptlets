@@ -8,6 +8,7 @@
  * www.reddit.com##+js(rh, https://old.reddit.com)
  * */
 (function() {
+    "use strict";
     const hostname = "{{1}}"
     if (hostname === "" || hostname === "{{1}}") {
         return;
