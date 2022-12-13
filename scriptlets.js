@@ -29,3 +29,22 @@
                             + window.location.search 
                             + window.location.hash);
 })();
+
+/// twitch-claim-bonus.js
+/// alias tcb.js
+/**
+ * Automatically claims bonus channel points on Twitch.
+ * @example
+ * twitch.tv##+js(twitch-claim-bonus)
+ */
+(function() {
+    "use strict";
+    const callback = ((mutation_record) => {
+        mutation_record.forEach(() => {
+            document.querySelector(".claimable-bonus__icon").click();
+        });
+    });
+    const observer = new MutationObserver(callback);
+    observer.observe(document.querySelector(".chat-input__buttons-container"), 
+                     {subtree: true, childList: true});
+})();
