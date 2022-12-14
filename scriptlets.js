@@ -39,11 +39,11 @@
  */
 (function() {
     "use strict";
-    const callback = ((mutation_record) => {
-        mutation_record.forEach(() => {
+    const callback = (mutation_record, _) => {
+        mutation_record.forEach((_) => {
             document.querySelector(".claimable-bonus__icon").click();
         });
-    });
+    };
     const observer = new MutationObserver(callback);
     observer.observe(document.querySelector(".chat-input__buttons-container"), 
                      {subtree: true, childList: true});
