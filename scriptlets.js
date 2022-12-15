@@ -41,7 +41,12 @@
     "use strict";
     const callback = (mutation_record, _) => {
         mutation_record.forEach((_) => {
-            document.querySelector(".claimable-bonus__icon").click();
+            try {
+                document.querySelector(".claimable-bonus__icon").click();
+                console.log("Bonus point claim succeed!");
+            } catch (_) {
+                console.log("Bonus point button isn't found!");
+            }
         });
     };
     const observer = new MutationObserver(callback);
