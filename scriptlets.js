@@ -17,7 +17,7 @@
         try {
             new URL(hostname);
             return true;
-        } catch (_) {
+        } catch (error) {
             return false;
         }
     })();
@@ -44,7 +44,7 @@
             try {
                 document.querySelector(".claimable-bonus__icon").click();
                 console.log("Bonus point claim succeed!");
-            } catch (_) {
+            } catch (error) {
                 console.log("Bonus point button isn't found!");
             }
         });
