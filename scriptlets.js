@@ -31,7 +31,6 @@
 })();
 
 /// twitch-claim-bonus.js
-/// alias tcb.js
 /**
  * Automatically claims bonus channel points on Twitch.
  * @example
@@ -39,15 +38,13 @@
  */
 (function() {
     "use strict";
-    const callback = (mutation_record, _) => {
-        mutation_record.forEach((_) => {
-            try {
-                document.querySelector(".claimable-bonus__icon").click();
-                console.log("Bonus point claim succeed!");
-            } catch (error) {
-                console.log("Bonus point button isn't found!");
-            }
-        });
+    const callback = () => {
+        try {
+            document.querySelector(".claimable-bonus__icon").click();
+            console.log("Bonus point claim succeed!");
+        } catch (error) {
+            console.log("Bonus point button isn't found!");
+        }
     };
     const observer = new MutationObserver(callback);
     observer.observe(document.querySelector(".chat-input__buttons-container"), 
