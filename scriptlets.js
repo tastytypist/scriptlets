@@ -47,8 +47,7 @@
         }
     };
     const observer = new MutationObserver(callback);
-    observer.observe(document.querySelector(".chat-input__buttons-container"), 
-                     {subtree: true, childList: true});
+    observer.observe(document.documentElement, {subtree: true, childList: true});
 })();
 
 /// twitch-video-ad.js
