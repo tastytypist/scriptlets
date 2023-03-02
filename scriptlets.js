@@ -38,7 +38,9 @@
  */
 (function() {
     "use strict";
+    
     console.log("Checking for button container...");
+    
     (() => {
         const callback = (_, observer) => {
             const elements = document.getElementsByClassName("chat-input__buttons-container");
@@ -51,6 +53,7 @@
         const observer = new MutationObserver(callback);
         observer.observe(document.documentElement, {subtree: true, childList: true});
     })();
+    
     function checkButton(element) {
         const callback = () => {
             try {
