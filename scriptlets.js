@@ -31,11 +31,6 @@
 })();
 
 /// twitch-claim-bonus.js
-/**
- * Automatically claims bonus channel points on Twitch.
- * @example
- * twitch.tv##+js(twitch-claim-bonus)
- */
 (function() {
     "use strict";
 
