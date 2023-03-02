@@ -38,17 +38,34 @@
  */
 (function() {
     "use strict";
-    const callback = () => {
-        try {
-            document.querySelector(".claimable-bonus__icon").click();
-            console.log("Bonus point claim succeed!");
-        } catch (error) {
-            console.log("Bonus point button isn't found!");
-        }
-    };
-    const observer = new MutationObserver(callback);
-    const element = document.querySelector(".chat-input__buttons-container");
-    observer.observe(element, {subtree: true, childList: true});
+
+    console.log("Checking for button container...");
+
+    (() => {
+        const callback = (_, observer) => {
+            const elements = document.getElementsByClassName("chat-input__buttons-container");
+            if (elements.length > 0) {
+                console.log("Button container found! Initiating auto-claim...");
+                observer.disconnect();
+                checkButton(elements[0]);
+            }
+        };
+        const observer = new MutationObserver(callback);
+        observer.observe(document.documentElement, {subtree: true, childList: true});
+    })();
+
+    function checkButton(element) {
+        const callback = () => {
+            try {
+                document.getElementsByClassName("claimable-bonus__icon")[0].click();
+                console.log("Bonus point claim succeed!");
+            } catch (error) {
+                console.log("Bonus point button isn't found!");
+            }
+        };
+        const observer = new MutationObserver(callback);
+        observer.observe(element, {subtree: true, childList: true});
+    }
 })();
 
 /// twitch-video-ad.js
