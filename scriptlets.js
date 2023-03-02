@@ -9,7 +9,7 @@
  * */
 (function() {
     "use strict";
-    const hostname = "{{1}}"
+    const hostname = "{{1}}";
     if (hostname === "" || hostname === "{{1}}") {
         return;
     }
