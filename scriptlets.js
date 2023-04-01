@@ -305,6 +305,7 @@
                                                 doTwitchPlayerTask(false, false, false, true, true);
                                             }
                                         }
+                                        settingsCog.click();
                                     }
                                 }
                             }
