@@ -449,7 +449,7 @@
                     if (resolution) {
                         if (qualityOverride) {
                             const quality = resolution.toLowerCase().split('x')[1];
-                            if (quality == qualityOverride) {
+                            if (quality === qualityOverride.toString()) {
                                 qualityOverrideFoundQuality = quality;
                                 qualityOverrideFoundFrameRate = frameRate;
                                 matchedResolutionUrl = encodingsLines[i];
