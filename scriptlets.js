@@ -55,7 +55,7 @@
         const callback = () => {
             try {
                 document.getElementsByClassName("claimable-bonus__icon")[0].click();
-                console.log("Bonus point claim succeed!");
+                console.log(`Bonus point claim succeed! - ${Date()}`);
             } catch (error) {
                 console.log("Bonus point button isn't found!");
             }
