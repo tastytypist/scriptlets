@@ -52,13 +52,14 @@
         observer.observe(document.documentElement, {subtree: true, childList: true});
     })();
     function checkButton(element) {
-        const callback = () => {
+        const callback = (_, observer) => {
             try {
                 document.getElementsByClassName("claimable-bonus__icon")[0].click();
                 console.log(`Bonus point claim succeed! - ${Date()}`);
             } catch (error) {
-                console.log("Bonus point button isn't found!");
+                console.log(`Bonus point button isn't found! - ${Date()}`);
             }
+            _ = observer.takeRecords();
         };
         const observer = new MutationObserver(callback);
         observer.observe(element, {subtree: true, childList: true});
