@@ -6,7 +6,7 @@ This repository contains a personal collection of ready-to-use uBlock Origin scr
 
 1. In advanced settings, add `https://raw.githubusercontent.com/tastytypist/scriptlets/main/scriptlets.js` into 
    `userResourcesLocation`.
-3. In `My Filters` page, add `<site>##+js(<scriptlet-name>, <args>)` using the appropriate arguments (if needed).
+2. In `My Filters` page, add `<site>##+js(<scriptlet-name>, <args>)` using the appropriate arguments (if needed).
 
 ## Attributions
 
