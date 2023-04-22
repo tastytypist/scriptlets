@@ -71,8 +71,7 @@
  * Replace Twitch ads with ad-free segments.
  * See the {@link https://github.com/pixeltris/TwitchAdSolutions documentation}
  * for more information.
- * @author pixeltris
- * @author GloftOfficial
+ * @author pixeltris, GloftOfficial
  * @license GPL-3.0-or-later
  * @example
  * twitch.tv##+js(twitch-video-ad)
