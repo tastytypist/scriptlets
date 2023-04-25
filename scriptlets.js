@@ -53,12 +53,13 @@
     })();
     function checkButton(element) {
         const callback = (_, observer) => {
-            _ = observer.takeRecords();
             try {
                 document.getElementsByClassName("claimable-bonus__icon")[0].click();
                 console.log(`Bonus point claim succeed! - ${Date()}`);
             } catch (error) {
                 console.log(`Bonus point button isn't found! - ${Date()}`);
+            } finally {
+                observer.takeRecords();
             }
         };
         const observer = new MutationObserver(callback);
