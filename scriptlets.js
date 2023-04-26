@@ -58,9 +58,8 @@
                 console.log(`Bonus point claim succeed! - ${Date()}`);
             } catch (error) {
                 console.log(`Bonus point button isn't found! - ${Date()}`);
-            } finally {
-                observer.takeRecords();
             }
+            observer.takeRecords();
         };
         const observer = new MutationObserver(callback);
         observer.observe(element, {subtree: true, childList: true});
