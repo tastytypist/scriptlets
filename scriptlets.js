@@ -69,7 +69,7 @@
                 console.log(`Bonus point button isn't found! - ${Date()}`);
             }
         };
-        const debouncedCallback = debounce(callback, 500);
+        const debouncedCallback = debounce(callback, 1000);
         const observer = new MutationObserver(debouncedCallback);
         observer.observe(element, {subtree: true, childList: true});
     }
