@@ -13,15 +13,9 @@
     if (hostname === "" || hostname === "{{1}}") {
         return;
     }
-    const validHostname = (() => {
-        try {
-            new URL(hostname);
-            return true;
-        } catch (error) {
-            return false;
-        }
-    })();
-    if (!validHostname) {
+    try {
+        new URL(hostname);
+    } catch (error) {
         return;
     }
     window.location.replace(hostname 
