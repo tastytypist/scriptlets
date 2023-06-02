@@ -74,7 +74,7 @@
  * Replace Twitch ads with ad-free segments.
  * See the {@link https://github.com/pixeltris/TwitchAdSolutions documentation}
  * for more information.
- * @author pixeltris, GloftOfficial
+ * @author pixeltris, GloftOfficial, level3tjg
  * @license GPL-3.0-or-later
  * @example
  * twitch.tv##+js(twitch-video-ad)
@@ -140,8 +140,8 @@
         scope.ClientSession = 'null';
         // scope.PlayerType1 = 'site'; // Source - NOTE: This is unused as it's implicitly used by the website itself
         scope.PlayerType2 = 'proxy'; // Source
-        scope.PlayerType3 = 'proxy'; // Source
-        scope.PlayerType4 = 'proxy'; // Source
+        scope.PlayerType3 = 'autoplay'; // 360p
+        scope.PlayerType4 = 'embed'; // Source
         scope.CurrentChannelName = null;
         scope.UsherParams = null;
         scope.WasShowingAd = false;
@@ -247,8 +247,8 @@
                         if (OriginalVideoPlayerQuality == null) {
                             OriginalVideoPlayerQuality = currentQuality;
                         }
-                        if (!currentQuality.includes('480') || e.data.value != null) {
-                            if (!OriginalVideoPlayerQuality.includes('480')) {
+                        if (!currentQuality.includes('360') || e.data.value != null) {
+                            if (!OriginalVideoPlayerQuality.includes('360')) {
                                 const settingsMenu = document.querySelector('div[data-a-target="player-settings-menu"]');
                                 if (settingsMenu == null) {
                                     const settingsCog = document.querySelector('button[data-a-target="player-settings-button"]');
@@ -260,7 +260,7 @@
                                         }
                                         const lowQuality = document.querySelectorAll('input[data-a-target="tw-radio"]');
                                         if (lowQuality) {
-                                            let qualityToSelect = lowQuality.length - 3;
+                                            let qualityToSelect = lowQuality.length - 2;
                                             if (e.data.value != null) {
                                                 if (e.data.value.includes('original')) {
                                                     e.data.value = OriginalVideoPlayerQuality;
@@ -360,11 +360,14 @@
                         let processAfter = async function(response) {
                             // Here we check the m3u8 for any ads and also try fallback player types if needed.
                             const responseText = await response.text();
+                            console.log(`Attempting to use ${PlayerType2} as PlayerType2...`)
                             let weaverText = await processM3U8(url, responseText, realFetch, PlayerType2);
                             if (weaverText.includes(AdSignifier)) {
+                                console.log(`PlayerType2 failed! Attempting to use ${PlayerType3} as PlayerType3...`);
                                 weaverText = await processM3U8(url, responseText, realFetch, PlayerType3);
                             }
                             if (weaverText.includes(AdSignifier)) {
+                                console.log(`PlayerType3 failed! Attempting to use ${PlayerType4} as PlayerType4...`);
                                 weaverText = await processM3U8(url, responseText, realFetch, PlayerType4);
                             }
                             resolve(new Response(weaverText));
@@ -730,7 +733,7 @@
         }];
     }
     function getAccessToken(channelName, playerType, realFetch) {
-        const templateQuery = 'query PlaybackAccessToken_Template($login: String!, $isLive: Boolean!, $vodID: ID!, $isVod: Boolean!, $playerType: String!) {  streamPlaybackAccessToken(channelName: $login, params: {platform: "web", playerBackend: "mediaplayer", playerType: $playerType}) @include(if: $isLive) {    value    signature    __typename  }  videoPlaybackAccessToken(id: $vodID, params: {platform: "web", playerBackend: "mediaplayer", playerType: $playerType}) @include(if: $isVod) {    value    signature    __typename  }}';
+        const templateQuery = 'query PlaybackAccessToken_Template($login: String!, $isLive: Boolean!, $vodID: ID!, $isVod: Boolean!, $playerType: String!) {  streamPlaybackAccessToken(channelName: $login, params: {platform: "android", playerBackend: "mediaplayer", playerType: $playerType}) @include(if: $isLive) {    value    signature    __typename  }  videoPlaybackAccessToken(id: $vodID, params: {platform: "android", playerBackend: "mediaplayer", playerType: $playerType}) @include(if: $isVod) {    value    signature    __typename  }}';
         const body = {
             operationName: 'PlaybackAccessToken_Template',
             query: templateQuery,
