@@ -154,6 +154,8 @@
         scope.DefaultProxyType = 'Gloft';
         scope.DefaultForcedQuality = null;
         scope.DefaultProxyQuality = null;
+        scope.ClientIntegrityHeader = null;
+        scope.AuthorizationHeader = null;
     }
     declareOptions(window);
     let TwitchAdblockSettings = {
@@ -203,6 +205,10 @@
                         ClientID = e.data.value;
                     } else if (e.data.key == 'UpdateDeviceId') {
                         GQLDeviceID = e.data.value;
+                    } else if (e.data.key == 'UpdateClientIntegrityHeader') {
+                        ClientIntegrityHeader = e.data.value;
+                    } else if (e.data.key == 'UpdateAuthorizationHeader') {
+                        AuthorizationHeader = e.data.value;
                     }
                 });
                 hookWorkerFetch();
@@ -739,6 +745,10 @@
         return gqlRequest(body, realFetch);
     }
     function gqlRequest(body, realFetch) {
+        if (ClientIntegrityHeader == null) {
+            console.warn('ClientIntegrityHeader is null');
+            // throw 'ClientIntegrityHeader is null';
+        }
         const fetchFunc = realFetch ? realFetch : fetch;
         if (!GQLDeviceID) {
             const dcharacters = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -752,10 +762,12 @@
             body: JSON.stringify(body),
             headers: {
                 'Client-ID': ClientID,
+                'Client-Integrity': ClientIntegrityHeader,
                 'Device-ID': GQLDeviceID,
                 'X-Device-Id': GQLDeviceID,
                 'Client-Version': ClientVersion,
-                'Client-Session-Id': ClientSession
+                'Client-Session-Id': ClientSession,
+                'Authorization': AuthorizationHeader
             }
         });
     }
@@ -930,6 +942,18 @@
                                 value: ClientID
                             });
                         }
+                        // Client integrity header
+                        ClientIntegrityHeader = init.headers['Client-Integrity'];
+                        twitchMainWorker.postMessage({
+                            key: 'UpdateClientIntegrityHeader',
+                            value: init.headers['Client-Integrity']
+                        });
+                        // Authorization header
+                        AuthorizationHeader = init.headers['Authorization'];
+                        twitchMainWorker.postMessage({
+                            key: 'UpdateAuthorizationHeader',
+                            value: init.headers['Authorization']
+                        });
                     }
                     // To prevent pause/resume loop for mid-rolls.
                     if (url.includes('gql') && init && typeof init.body === 'string' && init.body.includes('PlaybackAccessToken') && init.body.includes('picture-by-picture')) {
