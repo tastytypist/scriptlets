@@ -360,14 +360,11 @@
                         let processAfter = async function(response) {
                             // Here we check the m3u8 for any ads and also try fallback player types if needed.
                             const responseText = await response.text();
-                            console.log(`Attempting to use ${PlayerType2} as PlayerType2...`)
                             let weaverText = await processM3U8(url, responseText, realFetch, PlayerType2);
                             if (weaverText.includes(AdSignifier)) {
-                                console.log(`PlayerType2 failed! Attempting to use ${PlayerType3} as PlayerType3...`);
                                 weaverText = await processM3U8(url, responseText, realFetch, PlayerType3);
                             }
                             if (weaverText.includes(AdSignifier)) {
-                                console.log(`PlayerType3 failed! Attempting to use ${PlayerType4} as PlayerType4...`);
                                 weaverText = await processM3U8(url, responseText, realFetch, PlayerType4);
                             }
                             resolve(new Response(weaverText));
@@ -399,7 +396,7 @@
                                     StreamInfos[channelName] = streamInfo = { };
                                 }
                                 streamInfo.ChannelName = channelName;
-                                streamInfo.Urls = [];// xxx.m3u8 -> { Resolution: "284x160", FrameRate: 30.0 }
+                                streamInfo.Urls = []; // xxx.m3u8 -> { Resolution: "284x160", FrameRate: 30.0 }
                                 streamInfo.EncodingsM3U8Cache = [];
                                 streamInfo.EncodingsM3U8 = encodingsM3u8;
                                 const lines = encodingsM3u8.replace('\r', '').split('\n');
