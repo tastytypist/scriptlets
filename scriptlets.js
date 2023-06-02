@@ -440,7 +440,7 @@
     function getStreamUrlForResolution(encodingsM3u8, resolutionInfo, qualityOverrideStr) {
         let qualityOverride = 0;
         if (qualityOverrideStr && qualityOverrideStr.endsWith('p')) {
-            qualityOverride = qualityOverrideStr.substr(0, qualityOverrideStr.length - 1) | 0;
+            qualityOverride = qualityOverrideStr.slice(0, qualityOverrideStr.length - 1) | 0;
         }
         let qualityOverrideFoundQuality = 0;
         let qualityOverrideFoundFrameRate = 0;
