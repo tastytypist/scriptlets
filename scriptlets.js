@@ -639,10 +639,10 @@
             if (WasShowingAd) {
                 console.log('Finished blocking ads');
                 WasShowingAd = false;
-                // Here we put player back to original quality and remove the blocking message.
+                // Here we put the player back to the best quality possible and remove the blocking message.
                 postMessage({
                     key: 'ForceChangeQuality',
-                    value: 'original'
+                    value: 'source'
                 });
                 postMessage({
                     key: 'PauseResumePlayer'
