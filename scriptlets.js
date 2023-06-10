@@ -139,9 +139,9 @@
         scope.ClientVersion = 'null';
         scope.ClientSession = 'null';
         // scope.PlayerType1 = 'site'; // Source - NOTE: This is unused as it's implicitly used by the website itself
-        scope.PlayerType2 = 'proxy'; // Source
-        scope.PlayerType3 = 'autoplay'; // 360p
-        scope.PlayerType4 = 'embed'; // Source
+        scope.PlayerType2 = 'embed'; // Source
+        scope.PlayerType3 = 'proxy'; // Source
+        scope.PlayerType4 = 'autoplay'; // 360p
         scope.CurrentChannelName = null;
         scope.UsherParams = null;
         scope.WasShowingAd = false;
