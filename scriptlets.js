@@ -25,6 +25,53 @@
                             + window.location.hash);
 })();
 
+/// set-attribute.js
+/// alias set-attr.js
+/// alias sa.js
+/// world isolated
+/// dependency run-at-html-element.fn
+/**
+ * Sets the specified attribute-value pair on the specified node.
+ * @param {string} selector - a valid CSS selector of the targeted DOM node
+ * @param {string} attribute - the name of the attribute being set
+ * @param {string} value - the value of the attribute being set
+ * @example
+ * github.com##+js(sa, html, data-color-mode, dark)
+ */
+(function() {
+    "use strict";
+    const selector = "{{1}}";
+    const attribute = "{{2}}";
+    const value = "{{3}}";
+    if (selector === "" || selector === "{{1}}") {
+        return;
+    }
+    if (attribute === "" || attribute === "{{2}}") {
+        return;
+    }
+    if (value === "{{3}}") {
+        return;
+    }
+    const setAttr = (selector, attribute, value) => {
+        const nodes = document.querySelectorAll(selector);
+        try {
+            nodes.forEach((node) => {
+                node.setAttribute(attribute, value);
+            });
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    };
+    if (setAttr) {
+        // noinspection JSUnresolvedReference
+        runAtHtmlElement(() => {
+            setAttr(selector, attribute, value);
+        });
+    }
+})();
+
 /// twitch-claim-bonus.js
 /// world isolated
 /**
