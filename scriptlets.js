@@ -92,7 +92,7 @@
             }
         };
         const observer = new MutationObserver(callback);
-        observer.observe(document.documentElement, {subtree: true, childList: true});
+        observer.observe(document.documentElement, { subtree: true, childList: true });
     })();
     function debounce(func, delay) {
         let timer;
@@ -114,7 +114,7 @@
         };
         const debouncedCallback = debounce(callback, 1000);
         const observer = new MutationObserver(debouncedCallback);
-        observer.observe(element, {subtree: true, childList: true});
+        observer.observe(element, { subtree: true, childList: true });
     }
 })();
 
