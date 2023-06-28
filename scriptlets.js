@@ -1,5 +1,6 @@
 /// redirect-hostname.js
 /// alias rh.js
+/// world isolated
 /**
  * Redirects opened URL by replacing its hostname with the specified hostname.
  * @param {string} hostname - a valid string representation of a hostname we
@@ -25,6 +26,7 @@
 })();
 
 /// twitch-claim-bonus.js
+/// world isolated
 /**
  * Automatically claims bonus channel points on Twitch.
  * @example
