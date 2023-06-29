@@ -52,24 +52,41 @@
     if (value === "{{3}}") {
         return;
     }
-    const setAttr = (selector, attribute, value) => {
+    const setAttr = () => {
         const nodes = document.querySelectorAll(selector);
         try {
             nodes.forEach((node) => {
                 node.setAttribute(attribute, value);
             });
-            return true;
         } catch (error) {
             console.log(error);
-            return false;
         }
     };
-    if (setAttr) {
-        // noinspection JSUnresolvedReference
-        runAtHtmlElement(() => {
-            setAttr(selector, attribute, value);
+    const callback = (_, observer) => {
+        observer.disconnect();
+        setAttr();
+        observer.observe(document.documentElement, {
+            subtree: true, childList: true, attributes: true, attributeFilter: [attribute]
         });
+    };
+    function debounce(func, delay) {
+        let timer;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
     }
+    const debouncedCallback = debounce(callback, 20);
+    const observer = new MutationObserver(debouncedCallback);
+    // noinspection JSUnresolvedReference
+    runAtHtmlElement(() => {
+        setAttr();
+    });
+    observer.observe(document.documentElement, {
+        subtree: true, childList: true, attributes: true, attributeFilter: [attribute]
+    });
 })();
 
 /// twitch-claim-bonus.js
