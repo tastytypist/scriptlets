@@ -111,26 +111,37 @@
         const observer = new MutationObserver(callback);
         observer.observe(document.documentElement, { subtree: true, childList: true });
     })();
-    function debounce(func, delay) {
+    function leadingDebounce(func, delay) {
         let timer;
         return (...args) => {
+            if (!timer) {
+                func.apply(this, args);
+            }
             clearTimeout(timer);
             timer = setTimeout(() => {
-                func.apply(this, args);
+                timer = undefined;
             }, delay);
         };
     }
+    function logAttempt(time, success = false) {
+        if (success) {
+            console.log(`Bonus point claim succeed! - ${time}`);
+        } else {
+            console.log(`Bonus point button isn't found! - ${time}`);
+        }
+    }
     function checkButton(element) {
         const callback = () => {
+            const debouncedLog = leadingDebounce(logAttempt, 10000);
+            const time = Date();
             try {
                 document.getElementsByClassName("claimable-bonus__icon")[0].click();
-                console.log(`Bonus point claim succeed! - ${Date()}`);
+                debouncedLog(time, true);
             } catch (error) {
-                console.log(`Bonus point button isn't found! - ${Date()}`);
+                debouncedLog(time);
             }
         };
-        const debouncedCallback = debounce(callback, 1000);
-        const observer = new MutationObserver(debouncedCallback);
+        const observer = new MutationObserver(callback);
         observer.observe(element, { subtree: true, childList: true });
     }
 })();
