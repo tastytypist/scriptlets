@@ -1,12 +1,37 @@
+/*
+   The following section is used to document the external dependencies used
+   as helper functions for the scriptlets in this document.
+ */
+
+/**
+ * Run the specified function after the root element of the page's document is
+ * defined.
+ * @external runAtHtmlElement
+ * @example
+ * function foo() {
+ *     console.log("Hello world!");
+ * }
+ * runAtHtmlElement(foo);
+ * @param {function} func - a function to be run after the page's root element
+ *                          is defined
+ * @author Raymond Hill <rhill@raymondhill.net>
+ * @license GPL-3.0-or-later
+ */
+
+/*
+   The following section is used to implement ready-to-use scriptlets for
+   uBlock Origin.
+ */
+
 /// redirect-hostname.js
 /// alias rh.js
 /// world isolated
 /**
  * Redirects opened URL by replacing its hostname with the specified hostname.
- * @param {string} hostname - a valid string representation of a hostname we
- *                            want to be redirected to
  * @example
  * www.reddit.com##+js(rh, https://old.reddit.com)
+ * @param {string} hostname - a valid string representation of a hostname we
+ *                            want to be redirected to
  * */
 (function() {
     "use strict";
@@ -32,11 +57,11 @@
 /// dependency run-at-html-element.fn
 /**
  * Sets the specified attribute-value pair on the specified node.
+ * @example
+ * github.com##+js(sa, html, data-color-mode, dark)
  * @param {string} selector - a valid CSS selector of the targeted DOM node
  * @param {string} attribute - the name of the attribute being set
  * @param {string} value - the value of the attribute being set
- * @example
- * github.com##+js(sa, html, data-color-mode, dark)
  */
 (function() {
     "use strict";
@@ -80,7 +105,6 @@
     }
     const debouncedCallback = debounce(callback, 20);
     const observer = new MutationObserver(debouncedCallback);
-    // noinspection JSUnresolvedReference
     runAtHtmlElement(() => {
         setAttr();
     });
@@ -150,12 +174,11 @@
 /// twitch-video-ad.js
 /**
  * Replace Twitch ads with ad-free segments.
- * See the {@link https://github.com/pixeltris/TwitchAdSolutions documentation}
- * for more information.
- * @author pixeltris, GloftOfficial, level3tjg
- * @license GPL-3.0-or-later
  * @example
  * twitch.tv##+js(twitch-video-ad)
+ * @author pixeltris, GloftOfficial, level3tjg
+ * @license GPL-3.0-or-later
+ * @see {@link https://github.com/pixeltris/TwitchAdSolutions Documentation}
  */
 (function() {
     // "use strict";
