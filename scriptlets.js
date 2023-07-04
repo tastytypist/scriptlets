@@ -131,8 +131,8 @@
         }
     }
     function checkButton(element) {
+        const debouncedLog = leadingDebounce(logAttempt, 10000);
         const callback = () => {
-            const debouncedLog = leadingDebounce(logAttempt, 10000);
             const time = Date();
             try {
                 document.getElementsByClassName("claimable-bonus__icon")[0].click();
