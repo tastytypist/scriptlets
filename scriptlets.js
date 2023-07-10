@@ -51,7 +51,6 @@
 })();
 
 /// set-attribute.js
-/// alias set-attr.js
 /// alias sa.js
 /// world isolated
 /// dependency run-at-html-element.fn
