@@ -4,16 +4,17 @@
  */
 
 /**
- * Run the specified function after the root element of the page's document is
- * defined.
- * @external runAtHtmlElement
+ * Run the specified function at the specified loading state of the document.
+ * @external runAt
  * @example
  * function foo() {
  *     console.log("Hello world!");
  * }
- * runAtHtmlElement(foo);
- * @param {function} func - a function to be run after the page's root element
- *                          is defined
+ * runAt(foo, "loading");
+ * @param {function} func - a function to be run at the specified document
+ *                          loading state
+ * @param {string} when - a string representing a valid value of the
+ *                        `Document.readyState` property
  * @author Raymond Hill <rhill@raymondhill.net>
  * @license GPL-3.0-or-later
  */
@@ -53,7 +54,7 @@
 /// set-attribute.js
 /// alias sa.js
 /// world isolated
-/// dependency run-at-html-element.fn
+/// dependency run-at.fn
 /**
  * Sets the specified attribute-value pair on the specified node.
  * @example
@@ -90,7 +91,7 @@
         observer.disconnect();
         setAttr();
         observer.observe(document.documentElement, {
-            subtree: true, childList: true, attributes: true, attributeFilter: [attribute]
+            subtree: true, childList: true, attributeFilter: [attribute]
         });
     };
     function debounce(func, delay) {
@@ -104,12 +105,12 @@
     }
     const debouncedCallback = debounce(callback, 20);
     const observer = new MutationObserver(debouncedCallback);
-    runAtHtmlElement(() => {
+    runAt(() => {
         setAttr();
-    });
-    observer.observe(document.documentElement, {
-        subtree: true, childList: true, attributes: true, attributeFilter: [attribute]
-    });
+        observer.observe(document.documentElement, {
+            subtree: true, childList: true, attributeFilter: [attribute]
+        });
+    }, "complete");
 })();
 
 /// twitch-claim-bonus.js
