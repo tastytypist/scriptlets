@@ -11,10 +11,10 @@
  *     console.log("Hello world!");
  * }
  * runAt(foo, "loading");
- * @param {function} func - a function to be run at the specified document
- *                          loading state
- * @param {string} when - a string representing a valid value of the
- *                        `Document.readyState` property
+ * @param {function} func - A function to be run at the specified document
+ *                          loading state.
+ * @param {string} when - A string representing a valid value of the
+ *                        `Document.readyState` property.
  * @author Raymond Hill <rhill@raymondhill.net>
  * @license GPL-3.0-or-later
  */
@@ -59,9 +59,9 @@
  * Sets the specified attribute-value pair on the specified node.
  * @example
  * github.com##+js(sa, html, data-color-mode, dark)
- * @param {string} selector - a valid CSS selector of the targeted DOM node
- * @param {string} attribute - the name of the attribute being set
- * @param {string} value - the value of the attribute being set
+ * @param {string} selector - A valid CSS selector of the targeted DOM node.
+ * @param {string} attribute - The name of the attribute being set.
+ * @param {string} value - The value of the attribute being set.
  */
 (function() {
     "use strict";
