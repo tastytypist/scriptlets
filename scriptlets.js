@@ -1,6 +1,29 @@
 /*
+   The following section is used to document custom types used to represent
+   various dependencies-related objects.
+ */
+
+/**
+ * The object returned by `safeSelf()`.
+ * @typedef {Object} self
+ * @property {function(string, string=): RegExp} patternToRegex
+ * @property {function(Array, Number): Object.<string, string>} getExtraArgs
+ */
+
+/*
    The following section is used to document the external dependencies used
    as helper functions for the scriptlets in this document.
+ */
+
+/**
+ * Provide protected JavaScript methods for scriptlets.
+ * @external safeSelf
+ * @example
+ * const safe = safeSelf();
+ * safe.uboLog("Hello, world!");
+ * @returns {self} An object with protected methods as its properties.
+ * @author Raymond Hill <rhill@raymondhill.net>
+ * @license GPL-3.0-or-later
  */
 
 /**
@@ -27,12 +50,17 @@
 /// redirect-hostname.js
 /// alias rh.js
 /// world isolated
+/// dependency safe-self.fn
 /**
  * Redirects opened URL by replacing its hostname with the specified hostname.
  * @example
  * www.reddit.com##+js(rh, https://old.reddit.com)
- * @param {string} hostname - a valid string representation of a hostname we
- *                            want to be redirected to
+ * @param {string} hostname - A valid string representation of a hostname we
+ *                            want to be redirected to.
+ * @param {...string} - A comma-separated string pair, the former being the
+ *                      `exclude` token, the latter being a valid string
+ *                      representation of an href we want to exclude from
+ *                      redirection.
  * */
 function redirectHostname(hostname = "") {
     "use strict";
@@ -43,6 +71,14 @@ function redirectHostname(hostname = "") {
         new URL(hostname);
     } catch (error) {
         return;
+    }
+    const safe = safeSelf();
+    const extraArgs = safe.getExtraArgs(Array.from(arguments), 1);
+    if (extraArgs.exclude) {
+        const reExclude = safe.patternToRegex(extraArgs.exclude);
+        if (reExclude.test(window.location)) {
+            return;
+        }
     }
     window.location.replace(hostname 
                             + window.location.pathname 
