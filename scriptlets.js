@@ -91,14 +91,16 @@ function redirectHostname(hostname = "") {
 /// world isolated
 /// dependency run-at.fn
 /**
- * Sets the specified attribute-value pair on the specified node.
+ * Sets the specified attribute-value pair on the specified node at the
+ * specified document loading state.
  * @example
  * github.com##+js(sa, html, data-color-mode, dark)
  * @param {string} selector - A valid CSS selector of the targeted DOM node.
  * @param {string} attribute - The name of the attribute being set.
  * @param {string} value - The value of the attribute being set.
+ * @param {string} when - A valid value of the `Document.readyState` property.
  */
-function setAttribute(selector= "", attribute = "", value = "") {
+function setAttribute(selector= "", attribute = "", value = "", when = "complete") {
     "use strict";
     if (selector === "" || attribute === "") {
         return;
@@ -136,7 +138,7 @@ function setAttribute(selector= "", attribute = "", value = "") {
         observer.observe(document.documentElement, {
             subtree: true, childList: true, attributeFilter: [attribute]
         });
-    }, "complete");
+    }, when);
 }
 
 /// twitch-claim-bonus.js
