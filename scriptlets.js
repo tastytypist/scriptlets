@@ -34,10 +34,9 @@
  * @param {string} hostname - a valid string representation of a hostname we
  *                            want to be redirected to
  * */
-(function() {
+function redirectHostname(hostname = "") {
     "use strict";
-    const hostname = "{{1}}";
-    if (hostname === "" || hostname === "{{1}}") {
+    if (hostname === "") {
         return;
     }
     try {
@@ -49,7 +48,7 @@
                             + window.location.pathname 
                             + window.location.search 
                             + window.location.hash);
-})();
+}
 
 /// set-attribute.js
 /// alias sa.js
@@ -63,18 +62,9 @@
  * @param {string} attribute - The name of the attribute being set.
  * @param {string} value - The value of the attribute being set.
  */
-(function() {
+function setAttribute(selector= "", attribute = "", value = "") {
     "use strict";
-    const selector = "{{1}}";
-    const attribute = "{{2}}";
-    const value = "{{3}}";
-    if (selector === "" || selector === "{{1}}") {
-        return;
-    }
-    if (attribute === "" || attribute === "{{2}}") {
-        return;
-    }
-    if (value === "{{3}}") {
+    if (selector === "" || attribute === "") {
         return;
     }
     const setAttr = () => {
@@ -111,7 +101,7 @@
             subtree: true, childList: true, attributeFilter: [attribute]
         });
     }, "complete");
-})();
+}
 
 /// twitch-claim-bonus.js
 /// world isolated
@@ -120,7 +110,7 @@
  * @example
  * twitch.tv##+js(twitch-claim-bonus)
  */
-(function() {
+function twitchClaimBonus() {
     "use strict";
     console.log("Checking for button container...");
     (() => {
@@ -169,7 +159,7 @@
         const observer = new MutationObserver(callback);
         observer.observe(element, { subtree: true, childList: true });
     }
-})();
+}
 
 /// twitch-video-ad.js
 /**
@@ -180,7 +170,7 @@
  * @license GPL-3.0-or-later
  * @see {@link https://github.com/pixeltris/TwitchAdSolutions Documentation}
  */
-(function() {
+function twitchVideoAd() {
     // "use strict";
     if ( /(^|\.)twitch\.tv$/.test(document.location.hostname) === false ) { return; }
     // This stops Twitch from pausing the player when in another tab and an ad shows.
@@ -1070,4 +1060,4 @@
         };
     }
     hookFetch();
-})();
+}
