@@ -47,21 +47,20 @@
    uBlock Origin.
  */
 
-/// redirect-hostname.js
-/// alias rh.js
-/// world isolated
-/// dependency safe-self.fn
 /**
  * Redirects opened URL by replacing its hostname with the specified hostname.
  * @example
  * www.reddit.com##+js(rh, https://old.reddit.com)
+ * @description
+ * The scriptlet also accepts and optional token `exclude`, followed by a valid
+ * string representation of an href we want to exclude from redirection.
  * @param {string} hostname - A valid string representation of a hostname we
  *                            want to be redirected to.
- * @param {...string} - A comma-separated string pair, the former being the
- *                      `exclude` token, the latter being a valid string
- *                      representation of an href we want to exclude from
- *                      redirection.
  * */
+/// redirect-hostname.js
+/// alias rh.js
+/// world isolated
+/// dependency safe-self.fn
 function redirectHostname(hostname = "") {
     "use strict";
     if (hostname === "") {
@@ -86,10 +85,6 @@ function redirectHostname(hostname = "") {
                             + window.location.hash);
 }
 
-/// set-attribute.js
-/// alias sa.js
-/// world isolated
-/// dependency run-at.fn
 /**
  * Sets the specified attribute-value pair on the specified node at the
  * specified document loading state.
@@ -98,8 +93,12 @@ function redirectHostname(hostname = "") {
  * @param {string} selector - A valid CSS selector of the targeted DOM node.
  * @param {string} attribute - The name of the attribute being set.
  * @param {string} value - The value of the attribute being set.
- * @param {string} when - A valid value of the `Document.readyState` property.
+ * @param {string} [when] - A valid value of the `Document.readyState` property.
  */
+/// set-attribute.js
+/// alias sa.js
+/// world isolated
+/// dependency run-at.fn
 function setAttribute(selector= "", attribute = "", value = "", when = "complete") {
     "use strict";
     if (selector === "" || attribute === "") {
@@ -141,13 +140,13 @@ function setAttribute(selector= "", attribute = "", value = "", when = "complete
     }, when);
 }
 
-/// twitch-claim-bonus.js
-/// world isolated
 /**
  * Automatically claims bonus channel points on Twitch.
  * @example
  * twitch.tv##+js(twitch-claim-bonus)
  */
+/// twitch-claim-bonus.js
+/// world isolated
 function twitchClaimBonus() {
     "use strict";
     console.log("Checking for button container...");
@@ -199,7 +198,6 @@ function twitchClaimBonus() {
     }
 }
 
-/// twitch-video-ad.js
 /**
  * Replace Twitch ads with ad-free segments.
  * @example
@@ -208,6 +206,7 @@ function twitchClaimBonus() {
  * @license GPL-3.0-or-later
  * @see {@link https://github.com/pixeltris/TwitchAdSolutions Documentation}
  */
+/// twitch-video-ad.js
 function twitchVideoAd() {
     // "use strict";
     if ( /(^|\.)twitch\.tv$/.test(document.location.hostname) === false ) { return; }
