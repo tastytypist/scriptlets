@@ -50,7 +50,7 @@
 /**
  * Redirects opened URL by replacing its hostname with the specified hostname.
  * @example
- * www.reddit.com##+js(rh, https://old.reddit.com)
+ * www.reddit.com##+js(rh, old.reddit.com)
  * @description
  * The scriptlet also accepts and optional token `exclude`, followed by a valid
  * string representation of an href we want to exclude from redirection.
@@ -66,8 +66,14 @@ function redirectHostname(hostname) {
     if (hostname === undefined) {
         return;
     }
+    let targetOrigin;
+    if (/^https:\/\//.test(hostname)) {
+        targetOrigin = hostname
+    } else {
+        targetOrigin = "https://" + hostname;
+    }
     try {
-        new URL(hostname);
+        new URL(targetOrigin);
     } catch (error) {
         return;
     }
@@ -79,7 +85,7 @@ function redirectHostname(hostname) {
             return;
         }
     }
-    window.location.replace(hostname 
+    window.location.replace(targetOrigin
                             + window.location.pathname 
                             + window.location.search 
                             + window.location.hash);
