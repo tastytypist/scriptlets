@@ -61,9 +61,9 @@
 /// alias rh.js
 /// world isolated
 /// dependency safe-self.fn
-function redirectHostname(hostname = "") {
+function redirectHostname(hostname) {
     "use strict";
-    if (hostname === "") {
+    if (hostname === undefined) {
         return;
     }
     try {
@@ -92,17 +92,23 @@ function redirectHostname(hostname = "") {
  * github.com##+js(sa, html, data-color-mode, dark)
  * @param {string} selector - A valid CSS selector of the targeted DOM node.
  * @param {string} attribute - The name of the attribute being set.
- * @param {string} value - The value of the attribute being set.
+ * @param {string} [value] - The value of the attribute being set.
  * @param {string} [when] - A valid value of the `Document.readyState` property.
  */
 /// set-attribute.js
 /// alias sa.js
 /// world isolated
 /// dependency run-at.fn
-function setAttribute(selector= "", attribute = "", value = "", when = "complete") {
+function setAttribute(selector, attribute, value, when) {
     "use strict";
-    if (selector === "" || attribute === "") {
+    if (selector === undefined || attribute === undefined) {
         return;
+    }
+    if (value === undefined) {
+        value = "";
+    }
+    if (when === undefined) {
+        when = "complete";
     }
     const setAttr = () => {
         const nodes = document.querySelectorAll(selector);
