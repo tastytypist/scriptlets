@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 /*
    The following section is used to document custom types used to represent
    various dependencies-related objects.
@@ -42,6 +44,22 @@
  * @license GPL-3.0-or-later
  */
 
+
+/**
+ * Run the specified function after the root element of the page's document is
+ * defined.
+ * @external runAtHtmlElement
+ * @example
+ * function foo() {
+ *     console.log("Hello world!");
+ * }
+ * runAtHtmlElement(foo);
+ * @param {function} func - a function to be run after the page's root element
+ *                          is defined
+ * @author Raymond Hill <rhill@raymondhill.net>
+ * @license GPL-3.0-or-later
+ */
+
 /*
    The following section is used to implement ready-to-use scriptlets for
    uBlock Origin.
@@ -53,7 +71,7 @@
  * www.reddit.com##+js(rh, old.reddit.com)
  * @description
  * The scriptlet also accepts and optional token `exclude`, followed by a valid
- * string representation of an href we want to exclude from redirection.
+ * string representation of hrefs we want to exclude from redirection.
  * @param {string} hostname - A valid string representation of a hostname we
  *                            want to be redirected to.
  * */
@@ -162,18 +180,6 @@ function setAttribute(selector, attribute, value, when) {
 function twitchClaimBonus() {
     "use strict";
     console.log("Checking for button container...");
-    (() => {
-        const callback = (_, observer) => {
-            const elements = document.getElementsByClassName("chat-input__buttons-container");
-            if (elements.length > 0) {
-                console.log("Button container found! Initiating auto-claim...");
-                observer.disconnect();
-                checkButton(elements[0]);
-            }
-        };
-        const observer = new MutationObserver(callback);
-        observer.observe(document.documentElement, { subtree: true, childList: true });
-    })();
     function leadingDebounce(func, delay) {
         let timer;
         return (...args) => {
@@ -208,6 +214,18 @@ function twitchClaimBonus() {
         const observer = new MutationObserver(callback);
         observer.observe(element, { subtree: true, childList: true });
     }
+    runAtHtmlElement(() => {
+        const callback = (_, observer) => {
+            const elements = document.getElementsByClassName("chat-input__buttons-container");
+            if (elements.length > 0) {
+                console.log("Button container found! Initiating auto-claim...");
+                observer.disconnect();
+                checkButton(elements[0]);
+            }
+        };
+        const observer = new MutationObserver(callback);
+        observer.observe(document.documentElement, { subtree: true, childList: true });
+    });
 }
 
 /**
