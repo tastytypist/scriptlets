@@ -214,18 +214,16 @@ function twitchClaimBonus() {
         const observer = new MutationObserver(callback);
         observer.observe(element, { subtree: true, childList: true });
     }
-    runAtHtmlElement(() => {
-        const callback = (_, observer) => {
-            const elements = document.getElementsByClassName("chat-input__buttons-container");
-            if (elements.length > 0) {
-                console.log("Button container found! Initiating auto-claim...");
-                observer.disconnect();
-                checkButton(elements[0]);
-            }
-        };
-        const observer = new MutationObserver(callback);
-        observer.observe(document.documentElement, { subtree: true, childList: true });
-    });
+    const callback = (_, observer) => {
+        const elements = document.getElementsByClassName("chat-input__buttons-container");
+        if (elements.length > 0) {
+            console.log("Button container found! Initiating auto-claim...");
+            observer.disconnect();
+            checkButton(elements[0]);
+        }
+    };
+    const observer = new MutationObserver(callback);
+    observer.observe(document.documentElement, { subtree: true, childList: true });
 }
 
 /**
