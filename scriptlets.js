@@ -83,6 +83,14 @@ function redirectHostname(hostname) {
     if (hostname === undefined) {
         return;
     }
+    const safe = safeSelf();
+    const extraArgs = safe.getExtraArgs(Array.from(arguments), 1);
+    if (extraArgs.exclude) {
+        const reExclude = safe.patternToRegex(extraArgs.exclude);
+        if (reExclude.test(window.location)) {
+            return;
+        }
+    }
     let targetOrigin;
     if (/^https:\/\//.test(hostname)) {
         targetOrigin = hostname;
@@ -94,18 +102,12 @@ function redirectHostname(hostname) {
     } catch (error) {
         return;
     }
-    const safe = safeSelf();
-    const extraArgs = safe.getExtraArgs(Array.from(arguments), 1);
-    if (extraArgs.exclude) {
-        const reExclude = safe.patternToRegex(extraArgs.exclude);
-        if (reExclude.test(window.location)) {
-            return;
-        }
-    }
-    window.location.replace(targetOrigin
-                            + window.location.pathname 
-                            + window.location.search 
-                            + window.location.hash);
+    window.location.replace(
+        targetOrigin
+        + window.location.pathname
+        + window.location.search
+        + window.location.hash
+    );
 }
 
 /**
@@ -280,7 +282,7 @@ function twitchVideoAd() {
                 },
             });
         }
-    } catch (error) { }
+    } catch (error) { /* empty */ }
     // Send settings updates to worker.
     window.addEventListener(
         "message",
@@ -757,7 +759,7 @@ function twitchVideoAd() {
                 }
                 try {
                     // tryNotifyTwitch(textStr);
-                } catch (error) { }
+                } catch (error) { /* empty */ }
             }
             let currentResolution = null;
             if (streamInfo && streamInfo.Urls) {
@@ -811,7 +813,7 @@ function twitchVideoAd() {
                                     String(atob("aHR0cHM6Ly9hZGJsb2NrLmdsb2Z0Lm1lLz9jaGFuPQ==") + CurrentChannelName),
                                     { method: "GET" }
                                 );
-                            } catch (error) { }
+                            } catch (error) { /* empty */ }
                             break;
                         case "TTV LOL":
                             encodingsM3u8Response = await realFetch(
@@ -842,7 +844,7 @@ function twitchVideoAd() {
                             realFetch
                         );
                     }
-                } catch (error) { }
+                } catch (error) { /* empty */ }
                 return textStr;
             }
             const accessTokenResponse = await getAccessToken(CurrentChannelName, playerType);
@@ -867,7 +869,7 @@ function twitchVideoAd() {
                     } else {
                         return textStr;
                     }
-                } catch (error) { }
+                } catch (error) { /* empty */ }
                 return textStr;
             } else {
                 return textStr;
@@ -1104,8 +1106,8 @@ function twitchVideoAd() {
                         }
                     }, 3000);
                 }
-            } catch (error) { }
-        } catch (error) { }
+            } catch (error) { /* empty */ }
+        } catch (error) { /* empty */ }
     }
     let localDeviceID = null;
     localDeviceID = window.localStorage.getItem("local_copy_unique_id");
