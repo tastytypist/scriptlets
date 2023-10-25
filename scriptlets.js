@@ -100,7 +100,7 @@ function redirectHostname(hostname) {
     }
     try {
         const url = new URL(targetOrigin);
-        targetOrigin = url.origin
+        targetOrigin = url.href
     } catch (error) {
         return;
     }
