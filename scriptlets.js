@@ -104,6 +104,9 @@ function redirectHostname(hostname) {
     } catch (error) {
         return;
     }
+    if (targetOrigin.endsWith("/")) {
+        targetOrigin = targetOrigin.slice(0, -1)
+    }
     window.location.replace(
         targetOrigin
         + window.location.pathname
