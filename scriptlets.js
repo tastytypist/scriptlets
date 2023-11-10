@@ -187,7 +187,7 @@ function setAttribute(selector, attribute, value, when) {
 /// world isolated
 function twitchClaimBonus() {
     "use strict";
-    console.log("Checking for button container...");
+    console.log(`Checking for button container... - ${Date()}`);
     function leadingDebounce(func, delay) {
         let timer;
         return (...args) => {
@@ -225,13 +225,13 @@ function twitchClaimBonus() {
     const callback = (_, observer) => {
         const elements = document.getElementsByClassName("chat-input__buttons-container");
         if (elements.length > 0) {
-            console.log("Button container found! Initiating auto-claim...");
+            console.log(`Button container found! Initiating auto-claim... - ${Date()}`);
             observer.disconnect();
             checkButton(elements[0]);
         }
     };
     const observer = new MutationObserver(callback);
-    observer.observe(document.documentElement, { subtree: true, childList: true });
+    observer.observe(document, { subtree: true, childList: true });
 }
 
 /**
