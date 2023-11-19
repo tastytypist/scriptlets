@@ -187,6 +187,9 @@ function setAttribute(selector, attribute, value, when) {
 /// world isolated
 function twitchClaimBonus() {
     "use strict";
+    if (/^\/videos\//.test(document.location.pathname)) {
+        return;
+    }
     console.log(`Checking for button container... - ${Date()}`);
     function leadingDebounce(func, delay) {
         let timer;
