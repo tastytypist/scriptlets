@@ -141,7 +141,7 @@ function setAttribute(selector, attribute, value, when) {
     if (when === undefined) {
         when = "complete";
     }
-    const setAttr = () => {
+    function setAttr() {
         const nodes = document.querySelectorAll(selector);
         try {
             nodes.forEach((node) => {
@@ -150,14 +150,7 @@ function setAttribute(selector, attribute, value, when) {
         } catch (error) {
             console.log(error);
         }
-    };
-    const callback = (_, observer) => {
-        observer.disconnect();
-        setAttr();
-        observer.observe(document.documentElement, {
-            subtree: true, childList: true, attributeFilter: [attribute]
-        });
-    };
+    }
     function debounce(func, delay) {
         let timer;
         return (...args) => {
@@ -167,6 +160,13 @@ function setAttribute(selector, attribute, value, when) {
             }, delay);
         };
     }
+    const callback = (_, observer) => {
+        observer.disconnect();
+        setAttr();
+        observer.observe(document.documentElement, {
+            subtree: true, childList: true, attributeFilter: [attribute]
+        });
+    };
     const debouncedCallback = debounce(callback, 20);
     const observer = new MutationObserver(debouncedCallback);
     runAt(() => {
