@@ -190,6 +190,21 @@ function twitchClaimBonus() {
     if (/^\/videos\//.test(document.location.pathname)) {
         return;
     }
+    function findCookie(name) {
+        for (const cookie of document.cookie.split(/\s*;\s*/)) {
+            const position = cookie.indexOf("=");
+            if (position === -1) {
+                continue;
+            }
+            if (cookie.slice(0, position) === name) {
+                return true
+            }
+        }
+        return false
+    }
+    if (!findCookie("login")) {
+        return;
+    }
     console.log(`Checking for button container... - ${Date()}`);
     function leadingDebounce(func, delay) {
         let timer;
