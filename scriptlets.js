@@ -60,6 +60,38 @@
  */
 
 /*
+   The following section is used to implement read-to-use redirect resources
+   for uBlock Origin.
+ */
+
+/// redirect-frontend.js
+/// alias rf.js
+(function() {
+    "use strict";
+    const hostname = window.location.hostname
+    let destination;
+    switch (hostname) {
+        case "twitter.com":
+        case "x.com":
+            destination = "nitter.net";
+            break;
+        case "www.reddit.com":
+        case "new.reddit.com":
+            destination = "old.reddit.com";
+            break;
+        case "instagram.com":
+            destination = "picnob.com/profile"
+            break;
+    }
+    window.location.replace(
+        destination
+        + window.location.pathname
+        + window.location.search
+        + window.location.hash
+    )
+})()
+
+/*
    The following section is used to implement ready-to-use scriptlets for
    uBlock Origin.
  */
