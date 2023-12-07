@@ -1,4 +1,4 @@
-// noinspection JSUnusedGlobalSymbols
+// noinspection JSUnusedGlobalSymbols,JSUnresolvedReference,JSUndeclaredVariable,JSUnusedLocalSymbols
 
 /*
    The following section is used to document custom types used to represent
@@ -919,6 +919,7 @@ function twitchVideoAd() {
         }
     }
     function parseAttributes(str) {
+        // noinspection RegExpUnnecessaryNonCapturingGroup
         return Object.fromEntries(
             str.split(/(?:^|,)((?:[^=]*)=(?:"[^"]*"|[^,]*))/)
                 .filter(Boolean)
@@ -1254,6 +1255,7 @@ function twitchVideoAd() {
                     }
                     let isPBYPRequest = url.includes("picture-by-picture");
                     if (isPBYPRequest) {
+                        // noinspection JSUnusedAssignment
                         url = "";
                     }
                 }
