@@ -423,94 +423,94 @@ function twitchVideoAd() {
                     doTwitchPlayerTask(true, false, false, false, false);
                 } else if (e.data.key === "ForceChangeQuality") {
                     // This is used to fix the bug where the video would freeze.
-                    // try {
-                    //     if (navigator.userAgent.toLowerCase().indexOf("firefox") === -1) {
-                    //         return;
-                    //     }
-                    //     const autoQuality = doTwitchPlayerTask(false, false, false, true, false);
-                    //     const currentQuality = doTwitchPlayerTask(false, true, false, false, false);
-                    //     if (IsPlayerAutoQuality == null) {
-                    //         IsPlayerAutoQuality = autoQuality;
-                    //     }
-                    //     if (OriginalVideoPlayerQuality == null) {
-                    //         OriginalVideoPlayerQuality = currentQuality;
-                    //     }
-                    //     if (!currentQuality.includes("360") || e.data.value != null) {
-                    //         if (!OriginalVideoPlayerQuality.includes("360")) {
-                    //             const settingsMenu = document.querySelector('div[data-a-target="player-settings-menu"]');
-                    //             if (settingsMenu == null) {
-                    //                 const settingsCog = document.querySelector('button[data-a-target="player-settings-button"]');
-                    //                 if (settingsCog) {
-                    //                     settingsCog.click();
-                    //                     const qualityMenu = document.querySelector('button[data-a-target="player-settings-menu-item-quality"]');
-                    //                     if (qualityMenu) {
-                    //                         qualityMenu.click();
-                    //                     }
-                    //                     const lowQuality = document.querySelectorAll('input[data-a-target="tw-radio"]');
-                    //                     if (lowQuality) {
-                    //                         let qualityToSelect = lowQuality.length - 2;
-                    //                         if (e.data.value != null) {
-                    //                             if (e.data.value.includes("original")) {
-                    //                                 e.data.value = OriginalVideoPlayerQuality;
-                    //                                 if (IsPlayerAutoQuality) {
-                    //                                     e.data.value = "auto";
-                    //                                 }
-                    //                             }
-                    //                             if (e.data.value.includes("160p")) {
-                    //                                 qualityToSelect = 5;
-                    //                             }
-                    //                             if (e.data.value.includes("360p")) {
-                    //                                 qualityToSelect = 4;
-                    //                             }
-                    //                             if (e.data.value.includes("480p")) {
-                    //                                 qualityToSelect = 3;
-                    //                             }
-                    //                             if (e.data.value.includes("720p")) {
-                    //                                 qualityToSelect = 2;
-                    //                             }
-                    //                             if (e.data.value.includes("822p")) {
-                    //                                 qualityToSelect = 2;
-                    //                             }
-                    //                             if (e.data.value.includes("864p")) {
-                    //                                 qualityToSelect = 2;
-                    //                             }
-                    //                             if (e.data.value.includes("900p")) {
-                    //                                 qualityToSelect = 2;
-                    //                             }
-                    //                             if (e.data.value.includes("936p")) {
-                    //                                 qualityToSelect = 2;
-                    //                             }
-                    //                             if (e.data.value.includes("960p")) {
-                    //                                 qualityToSelect = 2;
-                    //                             }
-                    //                             if (e.data.value.includes("1080p")) {
-                    //                                 qualityToSelect = 2;
-                    //                             }
-                    //                             if (e.data.value.includes("source")) {
-                    //                                 qualityToSelect = 1;
-                    //                             }
-                    //                             if (e.data.value.includes("auto")) {
-                    //                                 qualityToSelect = 0;
-                    //                             }
-                    //                         }
-                    //                         const currentQualityLS = window.localStorage.getItem("video-quality");
-                    //                         lowQuality[qualityToSelect].click();
-                    //                         window.localStorage.setItem("video-quality", currentQualityLS);
-                    //                         if (e.data.value != null) {
-                    //                             OriginalVideoPlayerQuality = null;
-                    //                             IsPlayerAutoQuality = null;
-                    //                             doTwitchPlayerTask(false, false, false, true, true);
-                    //                         }
-                    //                     }
-                    //                     settingsCog.click();
-                    //                 }
-                    //             }
-                    //         }
-                    //     }
-                    // } catch (error) {
-                    //     OriginalVideoPlayerQuality = null;
-                    //     IsPlayerAutoQuality = null;
-                    // }
+                    try {
+                        if (navigator.userAgent.toLowerCase().indexOf("firefox") === -1) {
+                            return;
+                        }
+                        const autoQuality = doTwitchPlayerTask(false, false, false, true, false);
+                        const currentQuality = doTwitchPlayerTask(false, true, false, false, false);
+                        if (IsPlayerAutoQuality == null) {
+                            IsPlayerAutoQuality = autoQuality;
+                        }
+                        if (OriginalVideoPlayerQuality == null) {
+                            OriginalVideoPlayerQuality = currentQuality;
+                        }
+                        if (!currentQuality.includes("360") || e.data.value != null) {
+                            if (!OriginalVideoPlayerQuality.includes("360")) {
+                                const settingsMenu = document.querySelector('div[data-a-target="player-settings-menu"]');
+                                if (settingsMenu == null) {
+                                    const settingsCog = document.querySelector('button[data-a-target="player-settings-button"]');
+                                    if (settingsCog) {
+                                        settingsCog.click();
+                                        const qualityMenu = document.querySelector('button[data-a-target="player-settings-menu-item-quality"]');
+                                        if (qualityMenu) {
+                                            qualityMenu.click();
+                                        }
+                                        const lowQuality = document.querySelectorAll('input[data-a-target="tw-radio"]');
+                                        if (lowQuality) {
+                                            let qualityToSelect = lowQuality.length - 2;
+                                            if (e.data.value != null) {
+                                                if (e.data.value.includes("original")) {
+                                                    e.data.value = OriginalVideoPlayerQuality;
+                                                    if (IsPlayerAutoQuality) {
+                                                        e.data.value = "auto";
+                                                    }
+                                                }
+                                                if (e.data.value.includes("160p")) {
+                                                    qualityToSelect = 5;
+                                                }
+                                                if (e.data.value.includes("360p")) {
+                                                    qualityToSelect = 4;
+                                                }
+                                                if (e.data.value.includes("480p")) {
+                                                    qualityToSelect = 3;
+                                                }
+                                                if (e.data.value.includes("720p")) {
+                                                    qualityToSelect = 2;
+                                                }
+                                                if (e.data.value.includes("822p")) {
+                                                    qualityToSelect = 2;
+                                                }
+                                                if (e.data.value.includes("864p")) {
+                                                    qualityToSelect = 2;
+                                                }
+                                                if (e.data.value.includes("900p")) {
+                                                    qualityToSelect = 2;
+                                                }
+                                                if (e.data.value.includes("936p")) {
+                                                    qualityToSelect = 2;
+                                                }
+                                                if (e.data.value.includes("960p")) {
+                                                    qualityToSelect = 2;
+                                                }
+                                                if (e.data.value.includes("1080p")) {
+                                                    qualityToSelect = 2;
+                                                }
+                                                if (e.data.value.includes("source")) {
+                                                    qualityToSelect = 1;
+                                                }
+                                                if (e.data.value.includes("auto")) {
+                                                    qualityToSelect = 0;
+                                                }
+                                            }
+                                            const currentQualityLS = window.localStorage.getItem("video-quality");
+                                            lowQuality[qualityToSelect].click();
+                                            window.localStorage.setItem("video-quality", currentQualityLS);
+                                            if (e.data.value != null) {
+                                                OriginalVideoPlayerQuality = null;
+                                                IsPlayerAutoQuality = null;
+                                                doTwitchPlayerTask(false, false, false, true, true);
+                                            }
+                                        }
+                                        settingsCog.click();
+                                    }
+                                }
+                            }
+                        }
+                    } catch (error) {
+                        OriginalVideoPlayerQuality = null;
+                        IsPlayerAutoQuality = null;
+                    }
                 }
             };
             function getAdBlockDiv() {
