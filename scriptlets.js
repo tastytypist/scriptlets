@@ -218,13 +218,13 @@ function twitchClaimBonus() {
             }, delay);
         };
     }
-    function logAttempt(success) {
+    const logAttempt = (success) => {
         if (success) {
             console.log("Bonus point claim succeed!");
         } else {
             console.log("Bonus point button isn't found!");
         }
-    }
+    };
     function checkButton(element) {
         let debouncedLog = leadingDebounce(logAttempt, 10000);
         const callback = () => {
