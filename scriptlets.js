@@ -205,7 +205,7 @@ function twitchClaimBonus() {
     if (!findCookie("login")) {
         return;
     }
-    console.log(`Checking for button container... - ${Date()}`);
+    console.log("Checking for button container...");
     function leadingDebounce(func, delay) {
         let timer;
         return (...args) => {
