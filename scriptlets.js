@@ -218,23 +218,22 @@ function twitchClaimBonus() {
             }, delay);
         };
     }
-    function logAttempt(time, success = false) {
+    function logAttempt(success) {
         if (success) {
-            console.log(`Bonus point claim succeed! - ${time}`);
+            console.log("Bonus point claim succeed!");
         } else {
-            console.log(`Bonus point button isn't found! - ${time}`);
+            console.log("Bonus point button isn't found!");
         }
     }
     function checkButton(element) {
         let debouncedLog = leadingDebounce(logAttempt, 10000);
         const callback = () => {
-            const time = Date();
             try {
                 document.getElementsByClassName("claimable-bonus__icon")[0].click();
                 debouncedLog = leadingDebounce(logAttempt, 10000);
-                debouncedLog(time, true);
+                debouncedLog(true);
             } catch (error) {
-                debouncedLog(time);
+                debouncedLog(false);
             }
         };
         const observer = new MutationObserver(callback);
