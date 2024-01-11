@@ -423,9 +423,9 @@ function twitchVideoAd() {
                 } else if (e.data.key === "ForceChangeQuality") {
                     // This is used to fix the bug where the video would freeze.
                     try {
-                        if (navigator.userAgent.toLowerCase().indexOf("firefox") === -1) {
+                        // if (navigator.userAgent.toLowerCase().indexOf("firefox") === -1) {
                             return;
-                        }
+                        // }
                         const autoQuality = doTwitchPlayerTask(false, false, false, true, false);
                         const currentQuality = doTwitchPlayerTask(false, true, false, false, false);
                         if (IsPlayerAutoQuality == null) {
@@ -712,6 +712,9 @@ function twitchVideoAd() {
                 `Blocking ads (type:${playerType}, resolution:${resolutionInfo.Resolution}, frameRate:${resolutionInfo.FrameRate}, qualityOverride:${qualityOverride})`
             );
         }
+        postMessage({
+            key: "PauseResumePlayer",
+        });
         streamInfo.EncodingsM3U8Cache[playerType].RequestTime = Date.now();
         streamInfo.EncodingsM3U8Cache[playerType].Value = encodingsM3u8;
         streamInfo.EncodingsM3U8Cache[playerType].Resolution = resolutionInfo.Resolution;
