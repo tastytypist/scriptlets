@@ -242,7 +242,7 @@ function twitchClaimBonus() {
     const callback = (_, observer) => {
         const elements = document.getElementsByClassName("chat-input__buttons-container");
         if (elements.length > 0) {
-            console.log(`Button container found! Initiating auto-claim... - ${Date()}`);
+            console.log(`Button container found! Initiating auto-claim...`);
             observer.disconnect();
             checkButton(elements[0]);
         }
