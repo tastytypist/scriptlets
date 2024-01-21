@@ -53,8 +53,8 @@
  *     console.log("Hello world!");
  * }
  * runAtHtmlElement(foo);
- * @param {function} func - a function to be run after the page's root element
- *                          is defined
+ * @param {function} func - A function to be run after the page's root element
+ *                          is defined.
  * @author Raymond Hill <rhill@raymondhill.net>
  * @license GPL-3.0-or-later
  */
