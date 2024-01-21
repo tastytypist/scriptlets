@@ -1,4 +1,4 @@
-// noinspection JSUnusedGlobalSymbols,JSUnresolvedReference,JSUndeclaredVariable,JSUnusedLocalSymbols
+// noinspection JSUnusedGlobalSymbols,JSUnresolvedReference,JSUndeclaredVariable
 
 /*
    The following section is used to document custom types used to represent
