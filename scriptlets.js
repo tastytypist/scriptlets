@@ -196,6 +196,7 @@ function setAttribute(selector, attribute, value, when) {
  */
 /// twitch-claim-bonus.js
 /// world isolated
+/// dependency get-cookie.fn
 function twitchClaimBonus() {
     "use strict";
     if (/^\/videos\//.test(document.location.pathname)) {
