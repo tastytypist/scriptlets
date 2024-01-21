@@ -59,6 +59,17 @@
  * @license GPL-3.0-or-later
  */
 
+/**
+ * Get the value of the specified cookie name.
+ * @external getCookieFn
+ * @example
+ * let theme = getCookieFn("theme");
+ * setTheme(theme);
+ * @param {string} name - A string representing the cookie name to be fetched.
+ * @author Raymond Hill <rhill@raymondhill.net>
+ * @license GPL-3.0-or-later
+ */
+
 /*
    The following section is used to implement ready-to-use scriptlets for
    uBlock Origin.
@@ -190,19 +201,7 @@ function twitchClaimBonus() {
     if (/^\/videos\//.test(document.location.pathname)) {
         return;
     }
-    function findCookie(name) {
-        for (const cookie of document.cookie.split(/\s*;\s*/)) {
-            const position = cookie.indexOf("=");
-            if (position === -1) {
-                continue;
-            }
-            if (cookie.slice(0, position) === name) {
-                return true
-            }
-        }
-        return false
-    }
-    if (!findCookie("login")) {
+    if (getCookieFn("login") === undefined) {
         return;
     }
     console.log("Checking for button container...");
