@@ -45,21 +45,6 @@
  */
 
 /**
- * Run the specified function after the root element of the page's document is
- * defined.
- * @external runAtHtmlElement
- * @example
- * function foo() {
- *     console.log("Hello world!");
- * }
- * runAtHtmlElement(foo);
- * @param {function} func - A function to be run after the page's root element
- *                          is defined.
- * @author Raymond Hill <rhill@raymondhill.net>
- * @license GPL-3.0-or-later
- */
-
-/**
  * Get the value of the specified cookie name.
  * @external getCookieFn
  * @example
@@ -80,8 +65,8 @@
  * @example
  * www.reddit.com##+js(rh, old.reddit.com)
  * @description
- * The scriptlet also accepts and optional token `exclude`, followed by a valid
- * string representation of hrefs we want to exclude from redirection.
+ * The scriptlet also accepts an optional token `exclude`, followed by a valid
+ * regex representing hrefs we want to exclude from redirection.
  * @param {string} hostname - A valid string representation of a hostname we
  *                            want to be redirected to.
  * @license MIT
