@@ -95,13 +95,9 @@ function redirectHostname(hostname) {
         targetOrigin = "https://" + hostname;
     }
     try {
-        const url = new URL(targetOrigin);
-        targetOrigin = url.href
+        new URL(targetOrigin);
     } catch (error) {
         return;
-    }
-    if (targetOrigin.endsWith("/")) {
-        targetOrigin = targetOrigin.slice(0, -1)
     }
     window.location.replace(
         targetOrigin
