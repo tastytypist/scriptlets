@@ -1044,15 +1044,29 @@ function twitchVideoAd() {
                 }
                 return null;
             }
-            let reactRootNode = null;
-            const rootNode = document.querySelector("#root");
-            if (
-                rootNode
-                && rootNode._reactRootContainer
-                && rootNode._reactRootContainer._internalRoot
-                && rootNode._reactRootContainer._internalRoot.current
-            ) {
-                reactRootNode = rootNode._reactRootContainer._internalRoot.current;
+            function findReactRootNode() {
+                let reactRootNode = null;
+                const rootNode = document.querySelector("#root");
+                if (
+                    rootNode
+                    && rootNode._reactRootContainer
+                    && rootNode._reactRootContainer._internalRoot
+                    && rootNode._reactRootContainer._internalRoot.current
+                ) {
+                    reactRootNode = rootNode._reactRootContainer._internalRoot.current;
+                }
+                if (reactRootNode === null) {
+                    const containerName = Object.keys(rootNode).find((x) => x.startsWith("__reactContainer"));
+                    if (containerName !== null) {
+                        reactRootNode = rootNode[containerName];
+                    }
+                }
+                return reactRootNode;
+            }
+            const reactRootNode = findReactRootNode();
+            if (!reactRootNode) {
+                console.log("Could not find react root");
+                return;
             }
             videoPlayer = findReactNode(reactRootNode, (node) => {
                 node.setPlayerActive && node.props && node.props.mediaPlayerInstance;
