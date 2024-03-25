@@ -73,9 +73,8 @@
 /// alias rh.js
 /// world isolated
 /// dependency safe-self.fn
-function redirectHostname(hostname) {
-    "use strict";
-    if (hostname === undefined) {
+function redirectHostname(hostname = "") {
+    if (hostname === "") {
         return;
     }
     const safe = safeSelf();
@@ -120,16 +119,9 @@ function redirectHostname(hostname) {
 /// alias sa.js
 /// world isolated
 /// dependency run-at.fn
-function setAttribute(selector, attribute, value, when) {
-    "use strict";
-    if (selector === undefined || attribute === undefined) {
+function setAttribute(selector = "", attribute = "", value = "", when = "complete") {
+    if (selector === "" || attribute === "") {
         return;
-    }
-    if (value === undefined) {
-        value = "";
-    }
-    if (when === undefined) {
-        when = "complete";
     }
     function setAttr() {
         const nodes = document.querySelectorAll(selector);
@@ -177,7 +169,6 @@ function setAttribute(selector, attribute, value, when) {
 /// world isolated
 /// dependency get-cookie.fn
 function twitchClaimBonus() {
-    "use strict";
     if (/^\/videos\//.test(document.location.pathname)) {
         return;
     }
