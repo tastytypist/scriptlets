@@ -179,7 +179,7 @@ function twitchClaimBonus() {
     function leadingDebounce(func, delay) {
         let timer;
         return (...args) => {
-            if (!timer) {
+            if (timer === undefined) {
                 func.apply(this, args);
             }
             clearTimeout(timer);
