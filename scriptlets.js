@@ -67,7 +67,6 @@
  * regex representing hrefs we want to exclude from redirection.
  * @param {string} hostname - A valid string representation of a hostname we
  *                            want to be redirected to.
- * @license MIT
  * */
 /// redirect-hostname.js
 /// alias rh.js
@@ -113,7 +112,6 @@ function redirectHostname(hostname = "") {
  * @param {string} attribute - The name of the attribute being set.
  * @param {string} [value] - The value of the attribute being set.
  * @param {string} [when] - A valid value of the `Document.readyState` property.
- * @license MIT
  */
 /// set-attribute.js
 /// alias sa.js
@@ -163,7 +161,6 @@ function setAttribute(selector = "", attribute = "", value = "", when = "complet
  * Automatically claims bonus channel points on Twitch.
  * @example
  * twitch.tv##+js(twitch-claim-bonus)
- * @license MIT
  */
 /// twitch-claim-bonus.js
 /// world isolated

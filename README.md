@@ -10,5 +10,4 @@ This repository contains a personal collection of ready-to-use uBlock Origin scr
 
 ## Attributions
 
-This project is licensed under the GPLv3 License. Some parts of the source code in this repository may be licensed under 
-different licences as specified in the source code.
+This project is licensed under the GPLv3 License.
