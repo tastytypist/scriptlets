@@ -166,8 +166,7 @@ function setAttribute(selector = "", attribute = "", value = "", when = "complet
  * theathletic.com##+js(sf, api.theathletic.com/graphql body:PostEvent, '{"data":{"postEvent":true}}')
  * @param {string} optionsToMatch - A string of space-separated fetch options
  *                                  to be matched.
- * @param {string} responseBody - A JSON-parse-able string used to spoof the
- *                                response call.
+ * @param {string} responseBody - A string used to spoof the response call.
  */
 /// spoof-fetch.js
 /// alias sf.js
@@ -234,11 +233,10 @@ function spoofFetch(optionsToMatch = "", responseBody = "") {
                     console.log(error);
                 }
             }
-            const spoofedResponseBody = safe.JSON_parse(responseBody);
-            const spoofedResponse = new Response(spoofedResponseBody, {
+            const spoofedResponse = new Response(responseBody, {
                 statusText: "OK",
                 headers: {
-                    "Content-Length": spoofedResponseBody.length
+                    "Content-Length": responseBody.length.toString()
                 }
             });
             safe.Object_defineProperty(spoofedResponse, "url", {
