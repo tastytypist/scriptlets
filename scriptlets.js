@@ -87,12 +87,7 @@ function redirectHostname(hostname = "") {
             return;
         }
     }
-    let targetOrigin;
-    if (hostname.startsWith("https://")) {
-        targetOrigin = hostname;
-    } else {
-        targetOrigin = "https://" + hostname;
-    }
+    let targetOrigin = "https://" + hostname;
     try {
         new URL(targetOrigin);
     } catch (error) {
