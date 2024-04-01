@@ -88,9 +88,7 @@ function redirectHostname(hostname = "") {
         }
     }
     let targetOrigin = "https://" + hostname;
-    try {
-        new URL(targetOrigin);
-    } catch (error) {
+    if (URL.canParse(targetOrigin) === false) {
         return;
     }
     window.location.replace(
