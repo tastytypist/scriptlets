@@ -5,7 +5,10 @@
 
 /**
  * The object returned by `safeSelf()`.
- * @typedef {Object} self
+ * @typedef {Object} safe
+ * @property {function(Object, string, Object): Object} Object_defineProperty
+ * @property {function(string, function=): Object} JSON_parse
+ * @property {function(Object, function=, string=): string} JSON_stringify
  * @property {function(string, string=): RegExp} patternToRegex
  * @property {function(Array, Number): Object.<string, string>} getExtraArgs
  */
@@ -21,7 +24,7 @@
  * @example
  * const safe = safeSelf();
  * safe.uboLog("Hello, world!");
- * @returns {self} An object with protected methods as its properties.
+ * @returns {safe} An object with protected methods as its properties.
  * @author Raymond Hill <rhill@raymondhill.net>
  * @license GPL-3.0-or-later
  */
@@ -155,6 +158,100 @@ function setAttribute(selector = "", attribute = "", value = "", when = "complet
             subtree: true, childList: true, attributeFilter: [attribute]
         });
     }, when);
+}
+
+/**
+ * Prevents and spoofs the response of a fetch call mathing the specified options.
+ * @example
+ * theathletic.com##+js(sf, api.theathletic.com/graphql body:PostEvent, '{"data":{"postEvent":true}}')
+ * @param {string} optionsToMatch - A string of space-separated fetch options
+ *                                  to be matched.
+ * @param {string} responseString - A string used to spoof the response call.
+ */
+/// spoof-fetch.js
+/// alias sf.js
+/// dependency safe-self.fn
+function spoofFetch(optionsToMatch = "", responseString = "") {
+    if (optionsToMatch === "" || responseString === "") {
+        return;
+    }
+    const safe = safeSelf();
+    const needles = [];
+    const conditions = optionsToMatch.split(" ");
+    conditions.forEach((condition) => {
+        const setting = condition.split(":", 2);
+        let key, needle;
+        if (setting.length === 2) {
+            key = setting[0];
+            needle = safe.patternToRegex(setting[1]);
+        } else {
+            key = "url";
+            needle = safe.patternToRegex(setting[0]);
+        }
+        needles.push({ key, needle });
+    });
+    self.fetch = new Proxy(self.fetch, {
+        apply(target, thisArg, args) {
+            let options;
+            if (args[0] instanceof Request) {
+                options = args[0];
+            } else {
+                options = Object.assign({ url: args[0] }, args[1]);
+            }
+            try {
+                const settings = new Map();
+                for (const option in options) {
+                    let value = options[option];
+                    if (typeof value !== "string") {
+                        try {
+                            value = safe.JSON_stringify(value);
+                        } catch (error) {
+                            console.log(error);
+                            continue;
+                        }
+                    }
+                    settings.set(option, value);
+                }
+                for (const { key, needle } of needles) {
+                    if (settings.has(key) === false || needle.test(settings.get(key)) === false) {
+                        return Reflect.apply(target, thisArg, args);
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+            let responseType = "";
+            if (options.mode === undefined || options.mode === "cors") {
+                try {
+                    const destinationURL = new URL(options.url);
+                    if (destinationURL.origin !== document.location.origin) {
+                        responseType = "cors";
+                    } else {
+                        responseType = "basic";
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            return Promise.resolve(responseString).then((responseBody) => {
+                const spoofedResponse = new Response(responseBody, {
+                    statusText: "OK",
+                    headers: {
+                        "Content-Length": responseBody.length.toString()
+                    }
+                });
+                safe.Object_defineProperty(spoofedResponse, "url", {
+                    value: options.url
+                });
+                if (responseType !== "") {
+                    safe.Object_defineProperty(spoofedResponse, "type", {
+                        value: responseType
+                    });
+                }
+                return spoofedResponse;
+            });
+        }
+    });
 }
 
 /**
