@@ -166,13 +166,13 @@ function setAttribute(selector = "", attribute = "", value = "", when = "complet
  * theathletic.com##+js(sf, api.theathletic.com/graphql body:PostEvent, '{"data":{"postEvent":true}}')
  * @param {string} optionsToMatch - A string of space-separated fetch options
  *                                  to be matched.
- * @param {string} responseBody - A string used to spoof the response call.
+ * @param {string} responseString - A string used to spoof the response call.
  */
 /// spoof-fetch.js
 /// alias sf.js
 /// dependency safe-self.fn
-function spoofFetch(optionsToMatch = "", responseBody = "") {
-    if (optionsToMatch === "" || responseBody === "") {
+function spoofFetch(optionsToMatch = "", responseString = "") {
+    if (optionsToMatch === "" || responseString === "") {
         return;
     }
     const safe = safeSelf();
@@ -233,21 +233,23 @@ function spoofFetch(optionsToMatch = "", responseBody = "") {
                     console.log(error);
                 }
             }
-            const spoofedResponse = new Response(responseBody, {
-                statusText: "OK",
-                headers: {
-                    "Content-Length": responseBody.length.toString()
-                }
-            });
-            safe.Object_defineProperty(spoofedResponse, "url", {
-                value: options.url
-            });
-            if (responseType !== "") {
-                safe.Object_defineProperty(spoofedResponse, "type", {
-                    value: responseType
+            return Promise.resolve(responseString).then((responseBody) => {
+                const spoofedResponse = new Response(responseBody, {
+                    statusText: "OK",
+                    headers: {
+                        "Content-Length": responseBody.length.toString()
+                    }
                 });
-            }
-            return spoofedResponse;
+                safe.Object_defineProperty(spoofedResponse, "url", {
+                    value: options.url
+                });
+                if (responseType !== "") {
+                    safe.Object_defineProperty(spoofedResponse, "type", {
+                        value: responseType
+                    });
+                }
+                return spoofedResponse;
+            });
         }
     });
 }
