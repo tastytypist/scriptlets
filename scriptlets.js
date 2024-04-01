@@ -147,7 +147,9 @@ function setAttribute(selector = "", attribute = "", value = "", when = "complet
         observer.disconnect();
         setAttr();
         observer.observe(document.documentElement, {
-            subtree: true, childList: true, attributeFilter: [attribute]
+            subtree: true,
+            childList: true,
+            attributeFilter: [attribute]
         });
     };
     const debouncedCallback = debounce(callback, 20);
@@ -155,7 +157,9 @@ function setAttribute(selector = "", attribute = "", value = "", when = "complet
     runAt(() => {
         setAttr();
         observer.observe(document.documentElement, {
-            subtree: true, childList: true, attributeFilter: [attribute]
+            subtree: true,
+            childList: true,
+            attributeFilter: [attribute]
         });
     }, when);
 }
