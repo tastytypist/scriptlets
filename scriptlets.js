@@ -6,11 +6,11 @@
 /**
  * The object returned by `safeSelf()`.
  * @typedef {Object} safe
- * @property {function(Object, string, Object): Object} Object_defineProperty
- * @property {function(string, function=): Object} JSON_parse
- * @property {function(Object, function=, string=): string} JSON_stringify
- * @property {function(string, string=): RegExp} patternToRegex
- * @property {function(Array, Number): Object.<string, string>} getExtraArgs
+ * @property {function(Object, string, Object): Object} Object_defineProperty - Protected `Object.defineProperty`.
+ * @property {function(string, function=): Object} JSON_parse - Protected `JSON.parse`.
+ * @property {function(Object, function=, string=): string} JSON_stringify - Protected `JSON.stringify`.
+ * @property {function(string, string=): RegExp} patternToRegex - Convert string into `RegExp` object.
+ * @property {function(Array, Number): Object.<string, string>} getExtraArgs - Get extra arguments from filters.
  */
 
 /*
