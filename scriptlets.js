@@ -7,6 +7,7 @@
  * The object returned by `safeSelf()`.
  * @typedef {Object} safe
  * @property {function(Object, string, Object): Object} Object_defineProperty - Protected `Object.defineProperty`.
+ * @property {function(string, Object, Object=)} addEventListener - Protected `addEventListener`.
  * @property {function(string, function=): Object} JSON_parse - Protected `JSON.parse`.
  * @property {function(Object, function=, string=): string} JSON_stringify - Protected `JSON.stringify`.
  * @property {function(string, string=): RegExp} patternToRegex - Convert string into `RegExp` object.
@@ -257,7 +258,7 @@ function spoofFetch(optionsToMatch = "", responseString = "") {
  * twitch.tv##+js(twitch-claim-bonus)
  */
 /// twitch-claim-bonus.js
-/// world isolated
+/// dependency safe-self.fn
 /// dependency get-cookie.fn
 function twitchClaimBonus() {
     if (/^\/videos\//.test(document.location.pathname)) {
@@ -266,6 +267,14 @@ function twitchClaimBonus() {
     if (getCookieFn("login") === undefined) {
         return;
     }
+    const safe = safeSelf();
+    safe.Object_defineProperty(document, "visibilityState", {
+        value: "visible"
+    });
+    safe.Object_defineProperty(document, "hidden", {
+        value: false
+    });
+    safe.addEventListener("visibilitychange", (e) => e.stopImmediatePropagation(), true);
     console.log("Checking for button container...");
     function leadingDebounce(func, delay) {
         let timer;
