@@ -268,12 +268,16 @@ function twitchClaimBonus() {
         return;
     }
     const safe = safeSelf();
-    safe.Object_defineProperty(document, "visibilityState", {
-        value: "visible"
-    });
-    safe.Object_defineProperty(document, "hidden", {
-        value: false
-    });
+    try {
+        safe.Object_defineProperty(document, "visibilityState", {
+            value: "visible"
+        });
+        safe.Object_defineProperty(document, "hidden", {
+            value: false
+        });
+    } catch (error) {
+        console.log(error);
+    }
     safe.addEventListener("visibilitychange", (e) => e.stopImmediatePropagation(), true);
     console.log("Checking for button container...");
     function leadingDebounce(func, delay) {
