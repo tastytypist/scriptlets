@@ -275,10 +275,10 @@ function twitchClaimBonus() {
         safe.Object_defineProperty(document, "hidden", {
             value: false
         });
+        safe.addEventListener("visibilitychange", (e) => e.stopImmediatePropagation(), true);
     } catch (error) {
         console.log(error);
     }
-    safe.addEventListener("visibilitychange", (e) => e.stopImmediatePropagation(), true);
     console.log("Checking for button container...");
     function leadingDebounce(func, delay) {
         let timer;
