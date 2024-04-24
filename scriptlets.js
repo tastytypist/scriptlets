@@ -125,7 +125,7 @@ function setAttribute(selector = "", attribute = "", value = "", when = "complet
                 node.setAttribute(attribute, value);
             });
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
     function debounce(func, delay) {
@@ -204,7 +204,7 @@ function spoofFetch(optionsToMatch = "", responseString = "") {
                         try {
                             value = safe.JSON_stringify(value);
                         } catch (error) {
-                            console.log(error);
+                            console.error(error);
                             continue;
                         }
                     }
@@ -216,7 +216,7 @@ function spoofFetch(optionsToMatch = "", responseString = "") {
                     }
                 }
             } catch (error) {
-                console.log(error);
+                console.error(error);
             }
             let responseType = "";
             if (options.mode === undefined || options.mode === "cors") {
@@ -228,7 +228,7 @@ function spoofFetch(optionsToMatch = "", responseString = "") {
                         responseType = "basic";
                     }
                 } catch (error) {
-                    console.log(error);
+                    console.error(error);
                 }
             }
             return Promise.resolve(responseString).then((responseBody) => {
@@ -277,9 +277,9 @@ function twitchClaimBonus() {
         });
         safe.addEventListener("visibilitychange", (e) => e.stopImmediatePropagation(), true);
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
-    console.log("Checking for button container...");
+    console.info("Checking for button container...");
     function leadingDebounce(func, delay) {
         let timer;
         return (...args) => {
@@ -294,9 +294,9 @@ function twitchClaimBonus() {
     }
     const logAttempt = (success) => {
         if (success) {
-            console.log("Bonus point claim succeed!");
+            console.info("Bonus point claim succeed!");
         } else {
-            console.log("Bonus point button isn't found!");
+            console.info("Bonus point button isn't found!");
         }
     };
     function checkButton(element) {
@@ -316,7 +316,7 @@ function twitchClaimBonus() {
     const callback = (_, observer) => {
         const elements = document.getElementsByClassName("chat-input__buttons-container");
         if (elements.length > 0) {
-            console.log(`Button container found! Initiating auto-claim...`);
+            console.info(`Button container found! Initiating auto-claim...`);
             observer.disconnect();
             checkButton(elements[0]);
         }
