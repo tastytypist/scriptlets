@@ -293,7 +293,8 @@ function twitchClaimBonus() {
         safe.Object_defineProperty(document, "hidden", {
             value: false
         });
-        safe.addEventListener("visibilitychange", (e) => e.stopImmediatePropagation(), true);
+        const args = ["visibilitychange", (e) => e.stopImmediatePropagation(), true];
+        safe.addEventListener.apply(document, args);
     } catch (error) {
         console.error(error);
     }
